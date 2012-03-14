@@ -1,10 +1,11 @@
+var PRODUCT_DATA_PREFIX = "data/products/";
+var PRODUCT_DATA_POSTFIX = ".csv";
 
 var freedomData = {};
 var FREEDOM_DATA_URI = "data/freedom.csv";
 
+// Lataa muistiin vapaustiedot ja maakuvaukset kaikista maista
 function initializeFreedomData() {
-    var freedomDataCSV;
-    var freedomDataArray;
 
     // freedom.csv:n on oltava muodossa maa;lyhenne;freedomScore;kuvaus
 
@@ -14,21 +15,35 @@ function initializeFreedomData() {
 	    for(i in freedomDataArray) {
 		freedomData[freedomDataArray[i][1]] = [freedomDataArray[i][0], freedomDataArray[i][2], freedomDataArray[i][3]];
 	    }
-
-	    console.log(freedomData);
 	});
+}
 
-    console.log(freedomData);
+// Päivittää tuotedatan (TODO: kutsuuko myös kartan päivitystä?)
+function initializeProductData(productId) {
+    console.log("Kutsuttiin tuotedatan päivitystä tuoteryhmälle " + productId);
+
+    var fileURI = PRODUCT_DATA_PREFIX + productId + PRODUCT_DATA_POSTFIX;
+
+    //    jQuery.get(fileURI, function(data) { productDataArray = jQuery.csv(";")(data); });
+    
 }
 
 // Vaihtaa infoboxin sisällön, mikäli maasta on tietoja freedomDatassa
 function changeInfoboxContents(cc) {
+
     if(freedomData[cc] != null) {
-	if(freedomData[cc][3].length > 0) {
-	    $("#infobox").html(freedomData[cc][3]);
-	}
-	
+	$("#infobox").html(freedomData[cc][2]);
     }
+}
+
+function initializeCategoryLinks() {
+    var categoryLinks = $("#categories a");
+    categoryLinks.each(function (el, val) { 
+	$(val).click(function(event) { 
+		event.preventDefault();
+		initializeProductData($(val).attr("id")); 
+	    });
+	});
 }
 
 function initializeMap() {
@@ -52,6 +67,7 @@ function initializeMap() {
 }
 
 $().ready( function() {
+	initializeCategoryLinks();
 	initializeMap();
 	initializeFreedomData();
     });
