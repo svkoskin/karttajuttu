@@ -1,3 +1,4 @@
+var productData;
 var PRODUCT_DATA_PREFIX = "data/products/";
 var PRODUCT_DATA_POSTFIX = ".csv";
 
@@ -29,11 +30,16 @@ function initializeProductData(productId) {
 }
 
 // Vaihtaa infoboxin sisällön, mikäli maasta on tietoja freedomDatassa
-function changeInfoboxContents(cc) {
+function showCountryInfo(cc) {
 
     if(freedomData[cc] != null) {
 	$("#infobox").html(freedomData[cc][2]);
     }
+}
+
+// Nykyisen tuotteen tilastot infoboxiin
+function showProductStats() {
+    $("#infobox").html("Tuotteen " + productId + " tiedot.");
 }
 
 function initializeCategoryLinks() {
@@ -62,7 +68,7 @@ function initializeMap() {
 		hoverOpacity: 0.7,
 		hoverColor: false,
 		backgroundColor: '#a8a8a8',
-		onRegionClick: function(event, cc) { event.preventDefault(); changeInfoboxContents(cc); }
+		onRegionClick: function(event, cc) { event.preventDefault(); showCountryInfo(cc); }
 	});
 }
 
