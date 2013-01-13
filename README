@@ -1,0 +1,5 @@
+Lenkkareita diktatuurista - HS Open -kilpailutyö keväältä 2012
+
+Tullin tuontitilastoja kartalla esittelevä ohjelma. Ohjelma käyttää JQuerya, JQueryn CSV-pluginia ja public domainina julkaistua vektorikarttaa.
+
+JavaScript-toteutuksesta ja tilastojen käsittelystä vastasivat Ville Knuuttila, Vili Lehtinen ja Sami Koskinen.
